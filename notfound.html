@@ -5,63 +5,207 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 - กำลังพัฒนา</title>
     <style>
+        :root {
+            --bg-grad-1: #e0f2fe;
+            --bg-grad-2: #f8fafc;
+            --primary: #0284c7;
+            --primary-hover: #0369a1;
+            --text-main: #0f172a;
+            --text-sub: #475569;
+            --glass-bg: rgba(255, 255, 255, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.8);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-        body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background-color: #0f172a;
-            color: #f8fafc;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--bg-grad-1), var(--bg-grad-2));
+            color: var(--text-main);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            text-align: center;
             padding: 20px;
+            overflow: hidden;
+            perspective: 1000px;
         }
-        .container {
-            max-width: 500px;
+
+        /* Ambient Glow Objects */
+        .ambient-glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+            animation: float 8s ease-in-out infinite alternate;
         }
+        .glow-1 {
+            width: 350px;
+            height: 350px;
+            background: rgba(56, 189, 248, 0.4);
+            top: 10%;
+            left: 15%;
+        }
+        .glow-2 {
+            width: 450px;
+            height: 450px;
+            background: rgba(186, 230, 253, 0.6);
+            bottom: 5%;
+            right: 10%;
+            animation-delay: -4s;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-30px) scale(1.08); }
+        }
+
+        /* Interactive Container */
+        .card {
+            position: relative;
+            z-index: 1;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            padding: 50px 40px;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(2, 132, 199, 0.08),
+                        0 1px 3px rgba(0, 0, 0, 0.05);
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+            transform-style: preserve-3d;
+            transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+        }
+
+        /* Feature Badge */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(2, 132, 199, 0.1);
+            color: var(--primary);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
+        }
+
+        /* Typography */
         h1 {
-            font-size: 6rem;
-            font-weight: 800;
-            color: #38bdf8;
+            font-size: 5.5rem;
+            font-weight: 900;
+            line-height: 1;
+            background: linear-gradient(135deg, #0284c7, #2563eb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 10px;
             letter-spacing: -2px;
         }
+
         h2 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            font-weight: 600;
+            font-size: 1.35rem;
+            margin-bottom: 12px;
+            font-weight: 700;
+            color: var(--text-main);
         }
+
         p {
-            color: #94a3b8;
-            margin-bottom: 30px;
+            color: var(--text-sub);
+            margin-bottom: 32px;
             line-height: 1.6;
+            font-size: 0.95rem;
         }
+
+        /* Button */
         .btn {
-            display: inline-block;
-            background-color: #38bdf8;
-            color: #0f172a;
-            padding: 12px 24px;
-            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #0284c7, #0369a1);
+            color: #ffffff;
+            padding: 14px 28px;
+            border-radius: 12px;
             text-decoration: none;
             font-weight: 600;
-            transition: background-color 0.2s ease;
+            box-shadow: 0 8px 20px rgba(2, 132, 199, 0.25);
+            transition: all 0.3s ease;
         }
+
         .btn:hover {
-            background-color: #0ea5e9;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(2, 132, 199, 0.35);
+            background: linear-gradient(135deg, #0369a1, #075985);
+        }
+
+        .btn svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: transform 0.2s ease;
+        }
+
+        .btn:hover svg {
+            transform: translateX(-4px);
         }
     </style>
 </head>
 <body>
-    <div class="container">
+
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+
+    <div class="card" id="card">
+        <div class="badge">
+            <span class="badge-dot"></span>
+            Under Construction
+        </div>
         <h1>404</h1>
         <h2>ฟีเจอร์นี้กำลังอยู่ในระหว่างพัฒนา</h2>
         <p>หน้าเว็บที่คุณพยายามเข้าถึงยังไม่เปิดให้บริการในขณะนี้ โปรดกลับมาตรวจสอบอีกครั้งเร็วๆ นี้ หรือกลับสู่หน้าหลักเพื่อใช้งานส่วนอื่นก่อนครับ</p>
-        <a href="/" class="btn">กลับสู่หน้าแรก</a>
+        <a href="/" class="btn">
+            <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            กลับสู่หน้าแรก
+        </a>
     </div>
+
+    <script>
+        // 3D Parallax Effect On Mouse Move
+        const card = document.getElementById('card');
+
+        document.addEventListener('mousemove', (e) => {
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+            card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+
+        // Reset Card Position when Mouse Leaves
+        document.addEventListener('mouseleave', () => {
+            card.style.transform = `rotateY(0deg) rotateX(0deg)`;
+        });
+    </script>
 </body>
 </html>
